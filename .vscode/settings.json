@@ -1,0 +1,8 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[python]": {
+    "editor.defaultFormatter": null
+  },
+  "python.formatting.blackArgs": ["--line-length", "120"],
+  "python.formatting.provider": "black"
+}
