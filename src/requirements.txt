@@ -1,2 +1,5 @@
 pandas
 requests
+black
+lxml
+beautifulsoup4
