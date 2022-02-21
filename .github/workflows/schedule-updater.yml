@@ -1,0 +1,34 @@
+# .github/workflows/scheduled-updater.yml
+name: Update all companies daily
+
+on:
+  schedule:
+    # Runs "at 18:45 (Nepal Time), every Sunday to Friday
+    - cron: "0 13 * * 0,1,2,3,4"
+
+defaults:
+  run:
+    working-directory: ./src
+
+jobs:
+  update-daily-data:
+    name: update-daily-data
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.8" # Version range or exact version of a Python version to use, using SemVer's version range syntax
+      - name: Install packages
+        run: pip install -r requirements.txt
+      - name: Run updater
+        run: python dailyDataScrapper.py
+      - name: Setup Git
+        run: git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com" && git config --local user.name "github-actions[bot]"
+      - name: Commit Files
+        run: git stage . && git commit -m "Update data"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
