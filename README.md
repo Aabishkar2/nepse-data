@@ -4,7 +4,7 @@ nepse-data is the collection of all the datasets (from past to present) of vario
 
 ## Data
 
-The data can be found in [data/company](https://github.com/Aabishkar2/nepse-data/tree/main/data/company) folder. The data is arranged according to the company. For example: in `NMB.csv` you can find all the data of NMB Bank Limited. They are arranged in ascending order (date-wise).
+The data can be found in [data/company](https://github.com/Aabishkar2/nepse-data/tree/main/data/company) folder and are arranged according to the company. For example: in `NMB.csv` you can find all the data of NMB Bank Limited sorted in ascending order (date-wise).
 
 The repository currently includes data of around 130 companies. However more are coming soon. Feel free to create an issue if
 you want data of any particular company urgently.
