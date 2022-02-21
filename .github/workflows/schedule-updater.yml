@@ -20,7 +20,7 @@ jobs:
       - name: Setup Git
         run: git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com" && git config --local user.name "github-actions[bot]"
       - name: Commit Files
-        run: git stage . && git commit -m "Update data"
+        run: git stage ../data && git commit -m "Update data"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
