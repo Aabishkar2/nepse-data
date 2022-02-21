@@ -28,19 +28,20 @@ for file in fileDir.glob("*.csv"):
     if str(lastDate) != str(today):
         symbol = str(file).split(".")[2].split("/")[-1]
         data = dataTable.loc[dataTable["Symbol"] == symbol]
-        status = getStatus(float(data["Open"]), float(data["Close"]))
-        dataRow = [
-            [
-                today,
-                float(data["Open"]),
-                float(data["High"]),
-                float(data["Low"]),
-                float(data["Close"]),
-                float(data["Diff %"]),
-                float(data["Vol"]),
-                float(data["Turnover"]),
-                status,
+        if len(data) == 1:
+            status = getStatus(float(data["Open"]), float(data["Close"]))
+            dataRow = [
+                [
+                    today,
+                    float(data["Open"]),
+                    float(data["High"]),
+                    float(data["Low"]),
+                    float(data["Close"]),
+                    float(data["Diff %"]),
+                    float(data["Vol"]),
+                    float(data["Turnover"]),
+                    status,
+                ]
             ]
-        ]
-        dataframe = pd.DataFrame(dataRow)
-        dataframe.to_csv(file, mode="a", header=False, index=False)
+            dataframe = pd.DataFrame(dataRow)
+            dataframe.to_csv(file, mode="a", header=False, index=False)
