@@ -1,15 +1,11 @@
-# .github/workflows/scheduled-updater.yml
 name: Update all companies daily
-
 on:
   schedule:
     # Runs "at 18:45 (Nepal Time), every Sunday to Friday
     - cron: "0 13 * * 0,1,2,3,4"
-
 defaults:
   run:
     working-directory: ./src
-
 jobs:
   update-daily-data:
     name: update-daily-data
