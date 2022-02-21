@@ -12,10 +12,10 @@ The Github Actions updates the data on an almost daily basis so that the dataset
 
 The code through which the data were/are being collected resides on the `src/` folder. The code is written in `python3.8` and the required library is stored in `src/requirements.txt`
 
-If you want to run and collect the datasets by yourself then you can run the following command. 
+If you want to collect the datasets by yourself then you can run the following command. 
 
 
-Firstly, Just make sure you have `python3` installed. If not please find python3 installation procedure over [here](https://www.python.org/downloads/) 
+Firstly, Just make sure you have `python3` installed 😉. If not please find python3 installation procedure over [here](https://www.python.org/downloads/) 
 
 ```bash
 # go into the src folder
@@ -25,7 +25,7 @@ cd src
 pip3 install -r requirements.txt
 
 # for historical data collection
-# if you just want the datasets only then you can just run this only
+# if you want the datasets only then you can just run this
 python3 allDataScrapper.py
 
 # optional -- for daily data updates
