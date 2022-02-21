@@ -1,5 +1,5 @@
-pandas
-requests
+pandas==1.4.1
+requests==2.25.1
+lxml==4.8.0
+beautifulsoup4==4.9.3
 black
-lxml
-beautifulsoup4
