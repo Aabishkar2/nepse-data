@@ -1,4 +1,4 @@
-name: Update all companies daily
+name: update-companies-data
 on:
   schedule:
     # Runs "at 18:45 (Nepal Time), every Sunday to Friday
