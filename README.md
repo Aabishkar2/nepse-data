@@ -43,7 +43,7 @@ Pull requests are welcome. Please open an issue first to discuss what you would 
 
 Things you can consider doing:
 
-- Github action to update code on daily basis on Kaggle
+- Github action to update data on a daily basis on Kaggle
 - Date-wise Collection of data from past to present
 
 ## License
