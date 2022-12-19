@@ -35,7 +35,7 @@ python3 dailyDataScrapper.py
 
 ```
 
-The code that updates data on a daily basis resides on the `.github/.workflows` directory and runs on Github Action as a CRON job. The Github Action workflow runs 5 times every day (Sunday to Thursday) so that if the data collection is missed first time then it will work the second time and so on.
+The code that updates data on a daily basis resides on the `.github/.workflows` directory and runs on Github Action as a CRON job. The Github Action workflow runs 5 times every day (Sunday to Friday) so that if the data collection is missed first time then it will work the second time and so on.
 
 ## Contributing
 
