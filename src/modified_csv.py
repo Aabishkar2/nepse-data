@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import numpy as np
 
 # Directory containing the CSV files
 directory = './data/company-wise'
@@ -10,12 +11,21 @@ for filename in os.listdir(directory):
         # Read the CSV file
         filepath = os.path.join(directory, filename)
         data = pd.read_csv(filepath)
-        
+
+        # Convert NaN values to 0
+        data.fillna(0, inplace=True)
+
+        # Filter the data based on the published_date condition
+        filtered_data = data[data['published_date'] <= '2018-02-18'].copy()
+
         # Calculate the percentage change based on previous day's close price
-        data['per_change'] = (data['close'] - data['close'].shift(1)) / data['close'].shift(1) * 100
+        filtered_data['per_change'] = (filtered_data['close'] - filtered_data['close'].shift(1)) / filtered_data['close'].shift(1) * 100
 
         # Format 'per_change' column to display two decimal places
-        data['per_change'] = data['per_change'].apply(lambda x: '{:.2f}'.format(x))
-        
+        filtered_data['per_change'] = filtered_data['per_change'].apply(lambda x: '{:.2f}'.format(x))
+
+        # Update the original data with the calculated values
+        data.loc[filtered_data.index, 'per_change'] = filtered_data['per_change']
+
         # Save the modified data back to the same file
         data.to_csv(filepath, index=False)
