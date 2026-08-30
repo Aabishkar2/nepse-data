@@ -1,7 +1,7 @@
 import math
 import pandas as pd
 
-_FLOAT_COLS = ["open", "high", "low", "close", "per_change",
+_FLOAT_COLS = ["open", "high", "low", "close", "prev_close", "per_change",
                "traded_quantity", "traded_amount"]
 _ORDER = ["published_date"] + _FLOAT_COLS + ["status"]
 
