@@ -23,8 +23,18 @@ jobs:
       - name: Setup Git
         run: git config --local user.email "aabishkar2@gmail.com" && git config --local user.name "Aabishkar Wagle Bot"
       - name: Commit Files
-        run: git stage ../data && git commit -m "Update data"
+        id: commit
+        run: |
+          git stage ../data
+          if git diff --staged --quiet; then
+            echo "No data changes to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Update data"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Push changes
+        if: steps.commit.outputs.changed == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
