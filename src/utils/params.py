@@ -5,6 +5,7 @@ _COLUMNS = [
     "high",
     "low",
     "close",
+    "prev_close",
     "per_change",
     "traded_quantity",
     "traded_amount",
