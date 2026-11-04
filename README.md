@@ -60,6 +60,31 @@ A few things worth knowing:
 
 The code that updates data on a daily basis resides in the `.github/workflows` directory and runs on Github Actions as a CRON job. The workflow runs 5 times every day (Sunday to Friday) so that if the data collection is missed the first time then it will work the second time and so on.
 
+## Market breadth (advancers/decliners, AD Line, NEPSE index)
+
+This fork adds a market-breadth pipeline on top of the company-wise data above.
+It runs daily via `.github/workflows/update-breadth-chart.yml` (after the main
+data-collection workflow) and produces:
+
+- `data/market-breadth.csv` — one row per trading day: `advancers`, `decliners`,
+  `unchanged`, `total_traded`, counted from every company-wise CSV.
+- `data/nepse-index.csv` — the NEPSE index's own daily `open/high/low/close`,
+  pulled separately from ShareSansar's index history (index_id 12), back to
+  1997-07-20. This is the overall market index, not any single company's price.
+- `data/combined.csv` — the two merged, plus `net_advances` (advancers −
+  decliners), `ad_line` (cumulative net_advances since 1995 — the classic
+  Advance/Decline Line), and 5-day/7-day moving averages of both the AD line
+  and the NEPSE close.
+- `charts/ad_line_recent.png` — last 250 trading days (AD line rebased to 0 at
+  the window start, so short-term moves are visible against a ~30-year-old
+  cumulative total).
+- `charts/ad_line_full.png` — the full history.
+
+![NEPSE market breadth, recent](charts/ad_line_recent.png)
+
+Scripts live in `scripts/` and run in order: `fetch_nepse_index.py` →
+`build_breadth.py` → `build_combined.py` → `plot_chart.py`.
+
 ## Contributing
 
 Pull requests are welcome. Please open an issue first to discuss what you would like to change.

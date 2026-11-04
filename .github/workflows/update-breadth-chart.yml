@@ -1,0 +1,54 @@
+name: update-breadth-chart
+on:
+  schedule:
+    # 17:30 UTC = 23:15 Nepal time - runs after the last company-data
+    # update of the day (schedule-updater.yml's final run at 17:00 UTC)
+    - cron: "30 17 * * 0,1,2,3,4,5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-breadth-chart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install packages
+        run: pip install -r scripts/requirements.txt
+
+      - name: Fetch NEPSE index history
+        run: python scripts/fetch_nepse_index.py
+
+      - name: Build advancers/decliners breadth
+        run: python scripts/build_breadth.py
+
+      - name: Build combined dataset (AD line + moving averages)
+        run: python scripts/build_combined.py
+
+      - name: Render charts
+        run: python scripts/plot_chart.py
+
+      - name: Setup Git
+        run: git config --local user.email "actions@github.com" && git config --local user.name "nepse-breadth-bot"
+
+      - name: Commit outputs
+        id: commit
+        run: |
+          git add data/nepse-index.csv data/market-breadth.csv data/combined.csv charts/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Update market breadth data and charts"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push changes
+        if: steps.commit.outputs.changed == 'true'
+        run: git push
