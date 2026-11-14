@@ -12,10 +12,10 @@ jobs:
     name: update-daily-data
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.8" # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          python-version: "3.10" # 3.8 was removed from GitHub runner images (EOL); 3.10 is the newest that still has wheels for the pinned pandas 1.4.1 / lxml 4.9.1
       - name: Install packages
         run: pip install -r requirements.txt
       - name: Run updater
