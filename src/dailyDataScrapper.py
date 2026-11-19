@@ -37,6 +37,7 @@ for file in fileDir.glob("*.csv"):
                     float(data["High"]),
                     float(data["Low"]),
                     float(data["Close"]),
+                    float(data["Prev. Close"]),
                     float(data["Diff %"]),
                     float(data["Vol"]),
                     float(data["Turnover"]),
